@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>All-in-One Tools | #8thDimension</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b12;
+      --glass: rgba(255,255,255,0.04);
+      --muted:#aab0c0;
+      --accent-glow: rgba(122,0,255,0.14);
+      --radius:14px;
+    }
+
+    /* Reset + base */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(124,77,255,0.06), transparent 10%),
+        radial-gradient(600px 300px at 95% 90%, rgba(0,212,255,0.03), transparent 12%),
+        var(--bg);
+      color:#e9eef8;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:28px;
+    }
+
+    /* Container */
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px;
+    }
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      background: linear-gradient(90deg,#2b1a75 0%, #4b19a6 50%, #7a00ff 100%);
+      padding:22px 28px;
+      border-radius:18px;
+      box-shadow: 0 10px 40px rgba(122,0,255,0.18), 0 2px 8px rgba(0,0,0,0.5);
+      overflow:clip;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;
+      background:linear-gradient(135deg,#ffd25a,#ff6b6b);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#0b0b12;font-size:18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .title{
+      font-size:18px;font-weight:700;letter-spacing:0.6px;
+    }
+    .subtitle{font-size:12px;color:rgba(255,255,255,0.9);opacity:0.95}
+
+    /* Watermark / small */
+    .header-right{
+      font-size:13px;color:rgba(255,255,255,0.9);
+      text-align:right;
+    }
+    .tagline{font-weight:600}
+
+    /* Main layout */
+    main{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:26px;
+    }
+
+    /* Section (card) */
+    .card{
+      background:var(--glass);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+      backdrop-filter: blur(8px) saturate(1.05);
+      transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 320ms;
+      position:relative;
+      overflow:visible;
+    }
+    .card:hover{ transform: translateY(-10px); box-shadow: 0 18px 55px rgba(122,0,255,0.14); }
+
+    .section-head{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;
+    }
+    .section-title{ font-size:18px;font-weight:700; background: linear-gradient(90deg,#00e5ff,#7a00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+    .section-desc{ color:var(--muted); font-size:13px }
+
+    /* Inputs */
+    .control{ display:flex; flex-direction:column; gap:10px; margin-top:8px; }
+    input[type="text"], input[type="url"], input[type="file"], textarea{
+      background: rgba(255,255,255,0.03);
+      color: #eaf2ff;
+      padding:12px 14px;
+      border-radius:10px;
+      border: 1px solid rgba(255,255,255,0.04);
+      font-size:14px;
+    }
+    input[type="file"]{ padding:10px; cursor:pointer; }
+
+    /* Button base - tactile, tappable feel */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      min-height:46px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:15px;
+      letter-spacing:0.4px;
+      cursor:pointer;
+      border:none;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      transition: transform 160ms ease, box-shadow 220ms ease, filter 220ms;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{ transform: translateY(2px) scale(0.99); }
+
+    /* Unique styled buttons (each different) */
+    .btn-compress{
+      background: linear-gradient(135deg,#6C63FF 0%, #8A4DFF 60%);
+      box-shadow: 0 10px 35px rgba(108,99,255,0.28);
+    }
+    .btn-pdf{
+      background: linear-gradient(135deg,#FF6B6B 0%, #FF3B3B 60%);
+      box-shadow: 0 10px 35px rgba(255,107,107,0.22);
+    }
+    .btn-qr{
+      background: linear-gradient(135deg,#00D4FF 0%, #0078FF 70%);
+      box-shadow: 0 10px 35px rgba(0,212,255,0.15);
+    }
+    .btn-merge{
+      background: linear-gradient(135deg,#00FFA3 0%, #00C853 70%);
+      box-shadow: 0 10px 35px rgba(0,255,163,0.12);
+    }
+    .btn-yt{
+      background: linear-gradient(135deg,#FFD700 0%, #FF8C00 70%);
+      color:#0b0b12;
+      box-shadow: 0 10px 35px rgba(255,170,30,0.18);
+    }
+    /* subtle glow on hover */
+    .btn-compress:hover{ filter:brightness(1.03); box-shadow: 0 12px 45px rgba(108,99,255,0.34); transform: translateY(-3px); }
+    .btn-pdf:hover{ filter:brightness(1.03); box-shadow: 0 12px 45px rgba(255,107,107,0.30); transform: translateY(-3px);}
+    .btn-qr:hover{ filter:brightness(1.03); box-shadow: 0 12px 45px rgba(0,212,255,0.28); transform: translateY(-3px);}
+    .btn-merge:hover{ filter:brightness(1.03); box-shadow: 0 12px 45px rgba(0,255,163,0.24); transform: translateY(-3px);}
+    .btn-yt:hover{ filter:brightness(1.02); box-shadow: 0 12px 45px rgba(255,170,30,0.28); transform: translateY(-3px);}
+
+    /* thumbnails / results */
+    .result{ margin-top:14px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+    .result img{ border-radius:10px; width:100%; max-width:480px; display:block; box-shadow: 0 8px 30px rgba(2,6,23,0.6); }
+
+    /* footer */
+    footer{
+      margin-top:34px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+      padding:20px;
+    }
+
+    /* Responsive */
+    @media (min-width:880px){
+      main{ grid-template-columns: 1fr 1fr; gap:30px; }
+      .wide{ grid-column: 1 / -1; }
+    }
+    @media (max-width:480px){
+      header{ flex-direction:column; align-items:flex-start; gap:12px; padding:18px; border-radius:12px; }
+      .logo{ width:48px; height:48px; font-size:16px; border-radius:10px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header role="banner" aria-label="Site header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">8D</div>
+        <div>
+          <div class="title">All-in-One Tools</div>
+          <div class="subtitle">Smart utilities • Fast • Privacy-first</div>
+        </div>
+      </div>
+      <div class="header-right" aria-hidden="true">
+        <div class="tagline">Made by <strong>#8thDimension</strong></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.8)">Editor</div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Image Compressor -->
+      <section class="card wide" aria-labelledby="img-comp-title">
+        <div class="section-head">
+          <div>
+            <div id="img-comp-title" class="section-title">🖼️ Image Compressor</div>
+            <div class="section-desc">Reduce image size quickly in-browser. No upload — privacy preserved.</div>
+          </div>
+          <div style="font-size:13px;color:var(--muted)">Tip: choose a large image for best results</div>
+        </div>
+
+        <div class="control">
+          <label class="section-desc" for="imgInput">Select image</label>
+          <input id="imgInput" type="file" accept="image/*" aria-label="Select image to compress">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-compress" id="compressBtn" type="button" aria-pressed="false">
+              Compress & Download
+            </button>
+            <button class="btn btn-pdf" id="previewCompress" type="button" aria-pressed="false" title="Preview compressed image">
+              Preview
+            </button>
+          </div>
+
+          <div id="compressPreview" class="result" aria-live="polite" style="display:none">
+            <div class="section-desc">Preview (compressed)</div>
+            <img id="compressedImg" alt="Compressed preview" src="">
+            <a id="downloadLink" class="section-desc" style="color:#cde3ff;text-decoration:underline; font-weight:600">Download compressed image</a>
+          </div>
+
+          <canvas id="canvas" style="display:none"></canvas>
+        </div>
+      </section>
+
+      <!-- PDF to Word (placeholder) -->
+      <section class="card" aria-labelledby="pdf-title">
+        <div class="section-head">
+          <div>
+            <div id="pdf-title" class="section-title">📄 PDF → Word (Coming soon)</div>
+            <div class="section-desc">Server-side conversion planned (secure API integration).</div>
+          </div>
+          <div>
+            <button class="btn btn-pdf" disabled aria-disabled="true">Notify me (soon)</button>
+          </div>
+        </div>
+        <p class="section-desc">This feature requires backend processing and will be added soon. If you want early access, click "Notify me" (email integration planned).</p>
+      </section>
+
+      <!-- QR Generator -->
+      <section class="card" aria-labelledby="qr-title">
+        <div class="section-head">
+          <div>
+            <div id="qr-title" class="section-title">🔲 QR Code Generator</div>
+            <div class="section-desc">Create a QR instantly — works offline in your browser.</div>
+          </div>
+          <div style="font-size:13px;color:var(--muted)">Output: PNG</div>
+        </div>
+
+        <div class="control">
+          <label for="qrText" class="section-desc">Text or URL</label>
+          <input id="qrText" type="text" placeholder="Enter text or https://..." aria-label="Text or URL for QR code">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-qr" id="generateQR" type="button">Generate QR</button>
+            <button class="btn btn-merge" id="downloadQR" type="button" style="display:none">Download QR</button>
+          </div>
+          <div id="qrResult" class="result" style="display:none" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- File Merger / Splitter -->
+      <section class="card" aria-labelledby="merge-title">
+        <div class="section-head">
+          <div>
+            <div id="merge-title" class="section-title">📎 File Merger / Splitter</div>
+            <div class="section-desc">Planned: PDF merge, split & reorder. Backend required.</div>
+          </div>
+          <div>
+            <button class="btn btn-merge" disabled aria-disabled="true">Watch for release</button>
+          </div>
+        </div>
+        <p class="section-desc">This tool will be available soon with local-processing options and optional cloud backup.</p>
+      </section>
+
+      <!-- YouTube Thumbnail -->
+      <section class="card" aria-labelledby="yt-title">
+        <div class="section-head">
+          <div>
+            <div id="yt-title" class="section-title">🎥 YouTube Thumbnail Downloader</div>
+            <div class="section-desc">Paste a YouTube URL to fetch & download the thumbnail image.</div>
+          </div>
+          <div style="font-size:13px;color:var(--muted)">HQ available</div>
+        </div>
+
+        <div class="control">
+          <label for="ytUrl" class="section-desc">YouTube video URL</label>
+          <input id="ytUrl" type="text" placeholder="https://www.youtube.com/watch?v=VIDEO_ID" aria-label="YouTube video URL">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-yt" id="getThumb" type="button">Get Thumbnail</button>
+          </div>
+
+          <div id="ytResult" class="result" style="display:none" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">Made with ❤️ by <strong>#8thDimension</strong> — Editor</footer>
+  </div>
+
+  <!-- QRious for QR generation -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+
+  <script>
+    // --- Image Compressor ---
+    const imgInput = document.getElementById('imgInput');
+    const compressBtn = document.getElementById('compressBtn');
+    const previewBtn = document.getElementById('previewCompress');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const compressPreview = document.getElementById('compressPreview');
+    const compressedImg = document.getElementById('compressedImg');
+    const downloadLink = document.getElementById('downloadLink');
+
+    function readImageFile(file) {
+      return new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = e => res(e.target.result);
+        r.onerror = () => rej(new Error('Failed to read file'));
+        r.readAsDataURL(file);
+      });
+    }
+
+    async function compressImageAction(quality = 0.7, scale = 0.6) {
+      const file = imgInput.files && imgInput.files[0];
+      if (!file) { alert('Please select an image first.'); return; }
+      try {
+        const dataUrl = await readImageFile(file);
+        const img = new Image();
+        img.src = dataUrl;
+        await img.decode();
+
+        // scale image
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        return new Promise(resolve => {
+          canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            resolve({ blob, url });
+          }, 'image/jpeg', quality);
+        });
+      } catch (err) {
+        console.error(err);
+        alert('Could not compress image.');
+      }
+    }
+
+    compressBtn.addEventListener('click', async () => {
+      compressBtn.disabled = true;
+      compressBtn.setAttribute('aria-pressed','true');
+      compressBtn.textContent = 'Compressing...';
+      const res = await compressImageAction(0.75, 0.6);
+      if (res && res.url) {
+        const a = document.createElement('a');
+        a.href = res.url;
+        a.download = `compressed-${Date.now()}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+      compressBtn.textContent = 'Compress & Download';
+      compressBtn.disabled = false;
+      compressBtn.setAttribute('aria-pressed','false');
+    });
+
+    previewBtn.addEventListener('click', async () => {
+      const res = await compressImageAction(0.78, 0.6);
+      if (res && res.url) {
+        compressedImg.src = res.url;
+        downloadLink.href = res.url;
+        downloadLink.download = `compressed-preview-${Date.now()}.jpg`;
+        compressPreview.style.display = 'flex';
+      } else {
+        alert('Select an image first.');
+      }
+    });
+
+    // --- QR Generator ---
+    const generateQRBtn = document.getElementById('generateQR');
+    const downloadQRBtn = document.getElementById('downloadQR');
+    const qrText = document.getElementById('qrText');
+    const qrResult = document.getElementById('qrResult');
+
+    generateQRBtn.addEventListener('click', () => {
+      const value = qrText.value.trim();
+      if (!value) { alert('Enter some text or a URL for QR code.'); return; }
+
+      // create QR using qrious
+      const qr = new QRious({
+        value,
+        size: 600,
+        level: 'H'
+      });
+      // small canvas for display
+      const canvasEl = document.createElement('canvas');
+      canvasEl.width = 300;
+      canvasEl.height = 300;
+      const ctx2 = canvasEl.getContext('2d');
+      // draw scaled down QR to canvasEl
+      const img = new Image();
+      img.src = qr.toDataURL();
+      img.onload = () => {
+        ctx2.drawImage(img, 0, 0, canvasEl.width, canvasEl.height);
+        qrResult.innerHTML = '';
+        qrResult.appendChild(canvasEl);
+
+        // show download button and attach link
+        downloadQRBtn.style.display = 'inline-flex';
+        downloadQRBtn.onclick = () => {
+          const link = document.createElement('a');
+          link.href = qr.toDataURL('image/png');
+          link.download = `qr-${Date.now()}.png`;
+          link.click();
+        };
+        qrResult.style.display = 'flex';
+      };
+    });
+
+    // --- YouTube Thumbnail ---
+    const getThumbBtn = document.getElementById('getThumb');
+    const ytUrlInput = document.getElementById('ytUrl');
+    const ytResult = document.getElementById('ytResult');
+
+    getThumbBtn.addEventListener('click', () => {
+      const url = ytUrlInput.value.trim();
+      if (!url) { alert('Paste a YouTube video URL'); return; }
+
+      // extract video id (robust for common formats)
+      let videoId = '';
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes('youtube.com')) videoId = u.searchParams.get('v');
+        else if (u.hostname.includes('youtu.be')) videoId = u.pathname.slice(1);
+        else videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
+      } catch (e) {
+        // fallback parsing
+        videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
+      }
+      if (!videoId) { alert('Could not parse video ID. Make sure the URL is correct.'); return; }
+
+      const imgUrlHQ = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      const imgUrlHQ2 = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+      ytResult.innerHTML = '<div class="section-desc" style="color:var(--muted)">Fetching thumbnail…</div>';
+      ytResult.style.display = 'flex';
+
+      // try maxresfirst, fallback to hq
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        ytResult.innerHTML = '';
+        img.className = 'thumb-img';
+        img.style.maxWidth = '540px';
+        img.style.borderRadius = '10px';
+        ytResult.appendChild(img);
+
+        const dl = document.createElement('a');
+        dl.href = img.src;
+        dl.download = `yt-thumb-${videoId}.jpg`;
+        dl.textContent = '⬇ Download Thumbnail';
+        dl.style.color = '#cde3ff';
+        dl.style.fontWeight = '700';
+        dl.style.textDecoration = 'underline';
+        dl.style.marginTop = '8px';
+        ytResult.appendChild(dl);
+      };
+      img.onerror = () => {
+        // fallback to hqdefault
+        img.src = imgUrlHQ2;
+      };
+      img.src = imgUrlHQ;
+    });
+
+    // Accessibility: Enter key triggers where appropriate
+    qrText.addEventListener('keydown', (e) => { if(e.key==='Enter') generateQRBtn.click(); });
+    ytUrlInput.addEventListener('keydown', (e) => { if(e.key==='Enter') getThumbBtn.click(); });
+
+  </script>
+</body>
+</html>
+
